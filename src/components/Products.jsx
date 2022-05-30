@@ -12,6 +12,8 @@ const Products = ({
   setPage,
   limit,
   setLimit,
+  endPoint,
+  setEndpoint,
 }) => {
   // TODO: Remove below const and instead import them from chakra
   return (
@@ -20,7 +22,16 @@ const Products = ({
       <Grid>
         <Product products={products}></Product>
       </Grid>
-      <Pagination></Pagination>
+      <Pagination
+        products={products}
+        setProducts={setProducts}
+        page={page}
+        setPage={setPage}
+        limit={limit}
+        setLimit={setLimit}
+        endPoint={endPoint}
+        setEndpoint={setEndpoint}
+      ></Pagination>
     </Flex>
   );
 };

@@ -4,18 +4,19 @@ import Products from "./components/Products.jsx";
 
 const App = () => {
   const [products, setProducts] = useState([]);
-  const [item, setItem] = useState({});
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(3)
+  const [limit, setLimit] = useState(3);
+  const [endPoint, setEndPoint] = useState(0);
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/products`)
+    axios.get(`http://localhost:8080/products/?_page=${page}&_limit=${limit}`)
       .then(data => {
         setProducts(data.data);
-        //console.log(data);
+        console.log(data.headers["x-total-count"]);
+        setEndPoint(Number(data.headers["x-total-count"]));
       })
       .catch(err => console.log(err));
-  }, [])
+  }, [page, limit])
 
 
 
@@ -23,12 +24,12 @@ const App = () => {
     <Products
       products={products}
       setProducts={setProducts}
-      item={item}
-      setItem={setItem}
       page={page}
       setPage={setPage}
       limit={limit}
       setLimit={setLimit}
+      endPoint={endPoint}
+      setEndPoint={setEndPoint}
     ></Products>
   </div>);
 };
